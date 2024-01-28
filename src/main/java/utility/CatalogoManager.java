@@ -6,6 +6,7 @@ import entites.Utente;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import java.util.Date;
 import java.util.List;
 
@@ -95,6 +96,16 @@ public class CatalogoManager {
                 .setParameter("today", today)
                 .getResultList();
     }
+    public Utente ricercaUtentePerNumeroTessera(String numeroTessera) {
+        try {
+            return em.createQuery("SELECT u FROM Utente u WHERE u.numeroTessera = :numeroTessera", Utente.class)
+                    .setParameter("numeroTessera", numeroTessera)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null; // Restituisci null se nessun utente viene trovato
+        }
+    }
+
 
     public void chiudiEntityManager() {
         if (em != null && em.isOpen()) {

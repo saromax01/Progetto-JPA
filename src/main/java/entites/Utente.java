@@ -12,32 +12,30 @@ public class Utente {
 
     private String nome;
     private String cognome;
+
+    @Column(name = "data_nascita")
     private String dataNascita;
+
+    @Column(name = "numero_tessera")
     private String numeroTessera;
 
     @OneToMany(mappedBy = "utente")
     private List<Prestito> prestiti;
 
+    // Costruttori, getter e setter...
+
     public Utente() {
         // Costruttore vuoto richiesto da JPA
     }
 
-    public Utente(Long id, String nome, String cognome, String dataNascita, String numeroTessera, List<Prestito> prestiti) {
-        this.id = id;
+    public Utente(String numeroTessera, String nome, String cognome, String dataNascita) {
+        this.numeroTessera = numeroTessera;
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
-        this.numeroTessera = numeroTessera;
-        this.prestiti = prestiti;
+        this.prestiti = null;
     }
 
-    public Utente(String nome, String cognome, String dataNascita, String numeroTessera) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.dataNascita = dataNascita;
-        this.numeroTessera = numeroTessera;
-        this.prestiti = null; // o puoi inizializzare con una lista vuota se preferisci
-    }
 
     public Long getId() {
         return id;
